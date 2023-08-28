@@ -3398,74 +3398,6 @@ def Quantification():
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
 page_names_to_funcs = {
     "identification": identification,
@@ -3475,4 +3407,4 @@ page_names_to_funcs = {
 
 selected_page = st.sidebar.selectbox("Selectionner ", page_names_to_funcs.keys())
 page_names_to_funcs[selected_page]()
->>>>>>> 6afa1d7a0f4e7941391df1de958ebf08aadfba4f
+
