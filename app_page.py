@@ -21,7 +21,7 @@ from keras import optimizers
 from keras.applications import VGG16
 from keras.models import Model
 import os;
-pip install cv2
+!pip install cv2
 import cv2 
 import seaborn as sns
 from PIL import Image
