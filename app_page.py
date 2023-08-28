@@ -2633,7 +2633,7 @@ selected_page = st.sidebar.selectbox("Selectionner ", page_names_to_funcs.keys()
 page_names_to_funcs[selected_page]()
 
 
-=======
+
 # Contents of ~/my_app/streamlit_app.py
 import streamlit as st
 from PIL import Image, ImageOps
