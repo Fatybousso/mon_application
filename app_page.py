@@ -246,6 +246,7 @@ def image():
     st.markdown('<h1 style="text-align: center;">Prédiction image 3D </h1>', unsafe_allow_html=True)
     fichier2=[]
     labels2=[]
+    dir_path2="base2"
     for i in os.listdir(dir_path2):
          fichier2.append(dir_path2+'/'+i)
          labels2.append(i)
