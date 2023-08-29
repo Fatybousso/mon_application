@@ -292,6 +292,18 @@ def image():
 def Quantification():
     st.markdown('<h1 style="text-align: center;"> Quantification du polluants 🎉 </h1>', unsafe_allow_html=True)
     st.sidebar.markdown('<h1 style="text-align: center;"> Quantification du polluants 🎉 </h1>', unsafe_allow_html=True)
+    def find_delimiter(filename):
+            sniffer = csv.Sniffer()
+            with open(filename) as fp:
+                delimiter = sniffer.sniff(fp.read(5000)).delimiter
+            return delimiter
+    def get_image_path(img):
+            # Create a directory and save the uploaded image.
+            file_path = f"data/uploadedImages/{img.name}"
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, "wb") as img_file:
+                 img_file.write(img.getbuffer())
+            return file_path
     def cal_conc2(x,y,z,h,Ca,Cd):
         a=h/Ca
         a1=z/Cd
@@ -546,7 +558,9 @@ def Quantification():
             if col5.button("Méthode mono_exponentielle"):
                 st.latex(r''' \fcolorbox{red}{green}{$f_decay(x,a,tau) =  \epsilon + a\exp (\frac{-x}{tau} ) $}''')
                 for uploaded_file in uploaded_files:
-                    df = pd.read_csv(uploaded_file, delimiter=",")
+		    file=get_image_path(uploaded_file)
+                    delim=find_delimiter(file)
+                    df = pd.read_csv(uploaded_file, delimiter=delim)
                     Q=mono_exp(df,uploaded_file.name)
                     T=pd.concat([Taux4,Q], axis=1)
                     Taux4=T
@@ -605,7 +619,9 @@ def Quantification():
                 st.latex(r'''\fcolorbox{red}{blue}{$Aire = a1t1 + a2t2 $}''')
                 Taux4 = pd.DataFrame()
                 for uploaded_file in uploaded_files:
-                       df = pd.read_csv(uploaded_file, delimiter=",")
+		       file=get_image_path(uploaded_file)
+                       delim=find_delimiter(file)
+                       df = pd.read_csv(uploaded_file, delimiter=delim)
                        Q=double_exp(df,uploaded_file.name)
                        T=pd.concat([Taux4,Q], axis=1)
                        Taux4=T
@@ -659,7 +675,9 @@ def Quantification():
                 st.latex(r'''\fcolorbox{red}{purple}{$f_decay (x,a1,t1,c) =  \epsilon + a1\exp (\frac{-x}{t1} )  +\frac{a2}{2}\exp (\frac{-x}{t1+1.177c} ) +\frac{a2}{2}\exp (\frac{-x}{t1-1.177c})$}''')
                 Taux4 = pd.DataFrame()
                 for uploaded_file in uploaded_files:
-                       df = pd.read_csv(uploaded_file, delimiter=",")
+		       file=get_image_path(uploaded_files)
+                       delim=find_delimiter(file)
+                       df = pd.read_csv(uploaded_file, delimiter=delim)
                        Q=tri_exp(df,uploaded_file.name)
                        T=pd.concat([Taux4,Q], axis=1)
                        Taux4=T
