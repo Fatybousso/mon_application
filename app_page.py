@@ -242,6 +242,7 @@ def image():
     #st.sidebar.code("model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])")
     st.sidebar.markdown("<p style='text-align: center;'> Nous utilisons l'optimiseur Adam et la fonction de perte 'sparse_categorical_crossentropy' car les étiquettes sont encodées sous forme d'entiers.</p>", unsafe_allow_html=True)    
     from keras.models import load_model
+    from tensorflow.keras.models import load_model
     st.markdown('<h1 style="text-align: center;">Prédiction image 3D </h1>', unsafe_allow_html=True)
     model = load_model('model_2.h5')
     f=np.array(['ATMP+DTPMP', 'DTPMP', 'DTPMP+DTPA', 'EDTA'])
