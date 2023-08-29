@@ -675,7 +675,7 @@ def Quantification():
                 st.latex(r'''\fcolorbox{red}{purple}{$f_decay (x,a1,t1,c) =  \epsilon + a1\exp (\frac{-x}{t1} )  +\frac{a2}{2}\exp (\frac{-x}{t1+1.177c} ) +\frac{a2}{2}\exp (\frac{-x}{t1-1.177c})$}''')
                 Taux4 = pd.DataFrame()
                 for uploaded_file in uploaded_files:
-		       file=get_image_path(uploaded_files)
+		       file=get_image_path(uploaded_file)
                        delim=find_delimiter(file)
                        df = pd.read_csv(uploaded_file, delimiter=delim)
                        Q=tri_exp(df,uploaded_file.name)
