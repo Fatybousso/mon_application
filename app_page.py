@@ -558,7 +558,7 @@ def Quantification():
             if col5.button("Méthode mono_exponentielle"):
                 st.latex(r''' \fcolorbox{red}{green}{$f_decay(x,a,tau) =  \epsilon + a\exp (\frac{-x}{tau} ) $}''')
                 for uploaded_file in uploaded_files:
-                    df = pd.read_csv(uploaded_file, delimiter=';')
+                    df = pd.read_csv(uploaded_file, delimiter='\t')
                     Q=mono_exp(df,uploaded_file.name)
                     T=pd.concat([Taux4,Q], axis=1)
                     Taux4=T
@@ -617,7 +617,7 @@ def Quantification():
                 st.latex(r'''\fcolorbox{red}{blue}{$Aire = a1t1 + a2t2 $}''')
                 Taux4 = pd.DataFrame()
                 for uploaded_file in uploaded_files:
-                       df = pd.read_csv(uploaded_file, delimiter=';')
+                       df = pd.read_csv(uploaded_file, delimiter='\t')
                        Q=double_exp(df,uploaded_file.name)
                        T=pd.concat([Taux4,Q], axis=1)
                        Taux4=T
@@ -671,7 +671,7 @@ def Quantification():
                 st.latex(r'''\fcolorbox{red}{purple}{$f_decay (x,a1,t1,c) =  \epsilon + a1\exp (\frac{-x}{t1} )  +\frac{a2}{2}\exp (\frac{-x}{t1+1.177c} ) +\frac{a2}{2}\exp (\frac{-x}{t1-1.177c})$}''')
                 Taux4 = pd.DataFrame()
                 for uploaded_file in uploaded_files:
-                       df = pd.read_csv(uploaded_file, delimiter=';')
+                       df = pd.read_csv(uploaded_file, delimiter='\t')
                        Q=tri_exp(df,uploaded_file.name)
                        T=pd.concat([Taux4,Q], axis=1)
                        Taux4=T
