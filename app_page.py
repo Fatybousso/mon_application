@@ -298,12 +298,12 @@ def Quantification():
                 delimiter = sniffer.sniff(fp.read(5000)).delimiter
             return delimiter
     def get_image_path(img):
-            # Create a directory and save the uploaded image.
-            file_path = f"data/uploadedImages/{img.name}"
-            os.makedirs(os.path.dirname(file_path), exist_ok=True)
-            with open(file_path, "wb") as img_file:
-                 img_file.write(img.getbuffer())
-            return file_path
+         # Create a directory and save the uploaded image.
+         file_path = f"data/uploadedImages/{img.name}"
+         os.makedirs(os.path.dirname(file_path), exist_ok=True)
+         with open(file_path, "wb") as img_file:
+                img_file.write(img.getbuffer())
+         return file_path
     def cal_conc2(x,y,z,h,Ca,Cd):
         a=h/Ca
         a1=z/Cd
