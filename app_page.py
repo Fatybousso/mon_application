@@ -286,6 +286,7 @@ def image():
              else:
                  print(f"Erreur lors du chargement de l'image : {img_path}")
     images = np.array(images) / 255.0
+    from sklearn.preprocessing import LabelEncoder
     label_encoder = LabelEncoder()
     train_df['labels_encoded'] = label_encoder.fit_transform(train_df['labels'])
     history = model.fit(images, train_df['labels_encoded'] , batch_size=128, epochs=20, validation_split=0.2)
