@@ -245,7 +245,7 @@ def image():
     from tensorflow.keras.models import load_model
     st.markdown('<h1 style="text-align: center;">Prédiction image 3D </h1>', unsafe_allow_html=True)
     
-    model = load_model('https://github.com/Fatybousso/mon_application/model_2.h5')
+    model = load_model("model_2.h5")
     f=np.array(['ATMP+DTPMP', 'DTPMP', 'DTPMP+DTPA', 'EDTA'])
     from PIL import Image
     from tensorflow.keras.preprocessing import image
