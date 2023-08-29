@@ -244,7 +244,53 @@ def image():
     from keras.models import load_model
     from tensorflow.keras.models import load_model
     st.markdown('<h1 style="text-align: center;">Prédiction image 3D </h1>', unsafe_allow_html=True)
-    model = load_model('model_final2.h5')
+    fichier2=[]
+    labels2=[]
+    for i in os.listdir(dir_path2):
+         fichier2.append(dir_path2+'/'+i)
+         labels2.append(i)
+    l=[]
+    for j in range(len(labels2)):
+         if (labels2[j].find('A+D')!=-1) | (labels2[j].find('D+A')!=-1) | (labels2[j].find('DA')!=-1 ) | (labels2[j].find('ATMP+DTPMP')!=-1 ):
+             l.append('ATMP+DTPMP')
+         elif labels2[j].find('EDTA')!=-1:
+             l.append('EDTA')
+         elif (labels2[j].find('DTMP-DTPA')!=-1)|(labels2[j].find('DTPMP +DTPA')!=-1):
+             l.append('DTPMP+DTPA')
+         else :
+             l.append('DTPMP')
+    labels2=l
+    base2=np.transpose(pd.DataFrame([fichier2,labels2]))
+
+    Base=base2
+    base2.columns=['image','labels']
+    train_df, test_df= train_test_split(base2, test_size=0.2)
+    model = tf.keras.Sequential([
+    tf.keras.layers.Conv2D(32, (3, 3), activation = 'relu', input_shape = (224, 224, 3)), 
+    tf.keras.layers.MaxPooling2D(2,2),
+    tf.keras.layers.Conv2D(32, (3, 3), activation = 'relu'),
+    tf.keras.layers.MaxPooling2D(2,2),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(128, activation=tf.nn.relu),
+    tf.keras.layers.Dense(4, activation=tf.nn.softmax)])
+    model.compile(optimizer = 'adam', loss = 'sparse_categorical_crossentropy', metrics=['accuracy'])
+    # Charger les images et les redimensionner
+    images = []
+    for img_path in train_df['image'].values:
+        if "Thumbs.db" not in img_path:  # Vérifier si le chemin ne contient pas "Thumbs.db"
+             img = cv2.imread(img_path)
+             if img is not None:
+                 img = cv2.resize(img, (224, 224))
+                 images.append(img)
+             else:
+                 print(f"Erreur lors du chargement de l'image : {img_path}")
+    images = np.array(images) / 255.0
+    label_encoder = LabelEncoder()
+    train_df['labels_encoded'] = label_encoder.fit_transform(train_df['labels'])
+    history = model.fit(images, train_df['labels_encoded'] , batch_size=128, epochs=20, validation_split=0.2)
+    model.save("https://github.com/Fatybousso/mon_application/mon_model.h5")
+    
+    model = load_model('https://github.com/Fatybousso/mon_application/mon_model.h5')
     f=np.array(['ATMP+DTPMP', 'DTPMP', 'DTPMP+DTPA', 'EDTA'])
     from PIL import Image
     from tensorflow.keras.preprocessing import image
