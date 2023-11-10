@@ -203,9 +203,9 @@ def identification():
                   predictions_data = predict_model(estimator = model, data = df)
                   return predictions_data
     
-            model = load_model('best_model')
-            pred=predict_quality(model, df_to_predict)
-            st.dataframe(pred[pred.columns[-3:]].head())
+            #model = load_model('best_model')
+            #pred=predict_quality(model, df_to_predict)
+            #st.dataframe(pred[pred.columns[-3:]].head())
         else:
             st.image("https://ilm.univ-lyon1.fr//images/slides/Germanium%20ILM.jpg")
     if __name__ == "__main__":
